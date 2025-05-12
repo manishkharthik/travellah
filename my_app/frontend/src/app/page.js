@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import IconButton from '@/pages/IconButton';
 
 export default function Home() {
   return (
@@ -19,27 +20,22 @@ export default function Home() {
       {/* Logo and name */}
       <div
         style={{
-          position: "absolute",
-          top: "20px", // distance from the top
+          position: "absolute", // distance from the top
           left: "20px", // distance from the left
           display: "flex",
           alignItems: "center",
           zIndex: 2, // Ensure it's above other content
         }}
       >
-        {/* Name */}
-        <h1
-          style={{ 
-            fontFamily: "var(--font-aleo)", 
-            fontSize: "3.5rem",
-            fontWeight: "bold",
-            color: "#363c15",
-            margin: 0,
-            fontStyle: "italic",
-          }}
-        >
-          TravelLah!
-        </h1>
+
+      {/* Logo */}
+      <Image
+        src="/images/logo.png" // Make sure the file is in /public
+        alt="TravelLah Logo"
+        width={300}
+        height={300}
+        layout="intrinsic" // Adjusts to container size automatically
+      />
       </div>
 
       {/* Foreground content */}
@@ -89,63 +85,14 @@ export default function Home() {
           zIndex: 2,
         }}
       >
-        <h2 style={{ fontFamily: "var(--font-aleo)", fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>
+        <h2 style={{ fontFamily: "var(--font-poppins)", fontSize: "2.5rem", fontWeight: "bold", marginBottom: "1rem" }}>
           Dive In
         </h2>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "10rem", // Space between the features
-            alignItems: "center",
-            paddingRight: "5rem",
-            paddingTop: "0.5rem",
-            paddingBottom: "0.5rem",
-          }}
-        >
-          <button
-          style={{
-          padding: "1.5rem 3rem",
-          backgroundColor: "#7a5762",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          fontSize: "1.5rem",
-          fontWeight: "600",
-          cursor: "pointer",
-        }}
-          >
-            Collaborative Itinerary
-          </button>
-          <button
-            style={{
-              padding: "1.5rem 3rem",
-              backgroundColor: "#7a5762",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "1.5rem",
-              fontWeight: "600",
-              cursor: "pointer",
-            }}
-          >
-            Smart Cost-Splitting
-          </button>
-          <button
-            style={{
-              padding: "1.5rem 3rem",
-              backgroundColor: "#7a5762",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "1.5rem",
-              fontWeight: "600",
-              cursor: "pointer",
-            }}
-          >
-            Real-Time Chat
-          </button>
-        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: "10rem", flexWrap: "wrap", marginLeft: "-5.6rem" }}>
+          <IconButton label="Collaborative Itinerary" />
+          <IconButton label="Smart Cost-Splitting" />
+          <IconButton label="Real-Time Chat" />
+        </div>   
       </div>
     </div>
   );
