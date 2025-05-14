@@ -1,7 +1,14 @@
+'use client';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import IconButton from '@/pages/IconButton';
+import IconButton from '@/pages/features/IconButton';
 
 export default function Home() {
+  const router = useRouter();
+  const handleSmartCostSplittingClick = () => {
+    router.push('/smart-cost-splitting'); // Make sure this route exists
+  };
+
   return (
     <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
       {/* Background overlay */}
@@ -90,7 +97,7 @@ export default function Home() {
         </h2>
         <div style={{ display: "flex", justifyContent: "center", gap: "10rem", flexWrap: "wrap", marginLeft: "-5.6rem" }}>
           <IconButton label="Collaborative Itinerary" />
-          <IconButton label="Smart Cost-Splitting" />
+          <IconButton label="Smart Cost-Splitting" onClick={handleSmartCostSplittingClick}/>
           <IconButton label="Real-Time Chat" />
         </div>   
       </div>
