@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function NewExpense({ person, onAdd, onClose }) {
+    {/* This component is used to add a new expense. It takes in the following props: */}
     const [formData, setFormData] = useState({
         name: '',
         cost: '',
@@ -8,15 +9,18 @@ export default function NewExpense({ person, onAdd, onClose }) {
         status: '',
     });
 
+    {/* Initialise with empty values */}
     useEffect(() => {
         setFormData(f => ({ ...f, paidBy: '' }));
       }, [person]);
 
+    {/* This function handles the change event for the input fields */}
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
       };
     
+    {/* This function handles the submit event for the form */}
     const handleSubmit = (e) => {
         e.preventDefault();
         // Make sure cost is a number
@@ -28,6 +32,7 @@ export default function NewExpense({ person, onAdd, onClose }) {
         onClose(); // hide form
     };
 
+    {/* Form design and logic */}
     return (
         <form onSubmit={handleSubmit} style={{
           marginTop: '2rem',
