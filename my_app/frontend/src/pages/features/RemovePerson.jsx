@@ -23,7 +23,7 @@ export default function RemovePerson({ people, deleteMode, toggleDeleteMode, sel
                 (e.currentTarget.style.backgroundColor = deleteMode ? '#dc2626' : '#f87171')
               }
           >
-            {deleteMode ? 'Cancel Delete' : 'Delete Person'}
+            {deleteMode ? 'Cancel Delete' : 'Delete People'}
           </button>
           {deleteMode && selectedToDelete.size > 0 && (
           <button

@@ -4,10 +4,19 @@ import NewExpense from './NewExpense';
 export default function Breakdown({ person, expenses, setExpenses }) {
     const [showForm, setShowForm] = useState(false);
     const [selectedExpenseIndex, setSelectedExpenseIndex] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
 
     {/* Function to handle adding a new expense */}
     const handleAddExpense = (expense) => {
         setExpenses([...expenses, expense]); // works for individual person
+    };
+
+    {/* Function to handle editing an existing expense */}
+    const handleEditExpense = () => {
+        if (selectedExpenseIndex !== null) {
+            setIsEditing(true);
+            setShowForm(true);
+        }
     };
     
     if (!person) return null;
@@ -33,7 +42,7 @@ export default function Breakdown({ person, expenses, setExpenses }) {
           boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)',
           height: '100%',
         }}>
-          {/* Title with Expense button */}
+          {/* Title with Expense buttons */}
           <div style={{ 
             width: '100%', 
             display: 'flex', 
@@ -41,19 +50,35 @@ export default function Breakdown({ person, expenses, setExpenses }) {
             alignItems: 'center',
             marginBottom: '1.5rem',
           }}>
-            <h2 style={{ fontSize: '2.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#0d9488' }}>
+            <h2 style={{ fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '1rem', color: '#0d9488' }}>
                 Breakdown for {person.name}
             </h2>
             <button onClick={() => setShowForm(true)} style={{
+              padding: '0.6rem 1rem',
+              backgroundColor: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              fontSize: '1rem',
+              cursor: 'pointer',
+            }}>
+              Add expense
+            </button>
+            <button 
+              onClick={handleEditExpense}
+              disabled={selectedExpenseIndex == null}
+              style={{
                 padding: '0.6rem 1rem',
-                backgroundColor: '#3b82f6',
-                color: 'white',
+                backgroundColor: '#facc15',
+                color: '#000',
                 border: 'none',
                 borderRadius: '0.5rem',
                 fontSize: '1rem',
                 cursor: 'pointer',
-            }}>
-                Add expense
+                opacity: selectedExpenseIndex == null ? 0.5 : 1
+              }}
+            >
+              Edit expense
             </button>
           </div>
 
@@ -125,7 +150,21 @@ export default function Breakdown({ person, expenses, setExpenses }) {
             <NewExpense
               person={person}
               onAdd={handleAddExpense}
-              onClose={() => setShowForm(false)}
+              onEdit={(updatedExpense) => {
+                const updated = [...expenses];
+                updated[selectedExpenseIndex] = updatedExpense;
+                setExpenses(updated);
+                setIsEditing(false);
+                setShowForm(false);
+                setSelectedExpenseIndex(null);
+              }}
+              onClose={() => {
+                setShowForm(false);
+                setIsEditing(false);
+                setSelectedExpenseIndex(null);
+              }}
+              isEditing={isEditing}
+              initialData={expenses[selectedExpenseIndex]}
             />
           )}
 
@@ -178,14 +217,16 @@ export default function Breakdown({ person, expenses, setExpenses }) {
           {/* Instructions to resolve payment */}
           <p style={{
             fontSize: '1rem',
-            maxWidth: '60%',
-            lineHeight: 1.6,
+            maxWidth: '80%',
+            lineHeight: 3,
             color: '#444',
-            marginTop: '1rem',
+            marginTop: '2rem',
           }}>
             If an expense is unsettled, you can resolve it by clicking on it.
             <br />
-            If you want to add a new expense, click the "Add expense" button.
+            To add a new expense, click the "Add expense" button.
+            <br />
+            To edit an existing expense, click on the expense, followed by the "Edit expense" button.
             <br />
           </p>
         </div> 

@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 
-export default function NewExpense({ person, onAdd, onClose }) {
+export default function NewExpense({ person, onAdd, onEdit, onClose, isEditing = false, initialData = {} }) {
     {/* This component is used to add a new expense. It takes in the following props: */}
     const [formData, setFormData] = useState({
-        name: '',
-        cost: '',
-        paidBy: '',
-        status: '',
+      name: initialData.name || '',
+      cost: initialData.cost || '',
+      paidBy: initialData.paidBy || 'You',
+      status: initialData.status || 'Unsettled',
     });
 
     {/* Initialise with empty values */}
     useEffect(() => {
-        setFormData(f => ({ ...f, paidBy: '' }));
-      }, [person]);
+      if (!isEditing) {
+        setFormData(f => ({ ...f, paidBy: 'You' }));
+      }
+    }, [person, isEditing]);
 
     {/* This function handles the change event for the input fields */}
     const handleChange = (e) => {
@@ -23,13 +25,11 @@ export default function NewExpense({ person, onAdd, onClose }) {
     {/* This function handles the submit event for the form */}
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Make sure cost is a number
-        onAdd({
-            ...formData,
-            cost: parseFloat(formData.cost), // Convert cost to number
-        });
-        setFormData({ name: '', cost: '', paidBy: '', status: '' });
-        onClose(); // hide form
+        if (isEditing) {
+          onEdit({ ...formData, id: initialData.id });
+        } else {
+          onAdd(formData);
+        }
     };
 
     {/* Form design and logic */}
