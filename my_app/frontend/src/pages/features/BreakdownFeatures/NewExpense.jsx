@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { card, input, primaryBtn } from './uiStyles';
+import { card, input, primaryBtn } from '../OtherFeatures/uiStyles';
 
 export default function NewExpense({ person, onAdd, onEdit, onClose, isEditing = false, initialData = {} }) {
     {/* This component is used to add a new expense. It takes in the following props: */}

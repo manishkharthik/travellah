@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {card, primaryBtn} from './uiStyles';
+import {card, primaryBtn} from '../OtherFeatures/uiStyles';
 
 export default function SortExpenses({ current, onApply, onClose }) {
     const [choice, setChoice] = useState(current);

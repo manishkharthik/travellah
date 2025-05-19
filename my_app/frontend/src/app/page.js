@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import IconButton from '@/pages/features/IconButton';
+import IconButton from '@/pages/features/OtherFeatures/IconButton';
 
 export default function Home() {
   const router = useRouter();

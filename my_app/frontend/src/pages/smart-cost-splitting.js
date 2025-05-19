@@ -1,24 +1,19 @@
 import { useState } from 'react';
-import People from '@/pages/features/People';
-import Details from '@/pages/features/Details';
-import Breakdown from '@/pages/features/Breakdown';
+import People from '@/pages/features/PeopleFeatures/People';
+import Details from '@/pages/features/OtherFeatures/Details';
+import Breakdown from '@/pages/features/BreakdownFeatures/Breakdown';
 
 export default function SmartCostSplitting() {
     const [selectedPerson, setSelectedPerson] = useState(null);
     const [expenses, setExpenses] = useState({});
 
-    {/* Functions to handle adding/removing people */}
+    {/* Functions to handle adding people */}
     const handleAddPerson = (newPerson) => {
       setExpenses((prev) => {
         if (prev[newPerson]) return prev; // prevent duplicates
         return { ...prev, [newPerson]: [] };
       });
     };
-    const handleRemovePerson = (names) => {
-      const newExpenses = { ...expenses };
-      names.forEach(name => delete newExpenses[name]);
-      setExpenses(newExpenses);
-    };    
 
     return (
       <div style={{ display: 'flex', height: '100vh', fontFamily: 'sans-serif' }}>
@@ -37,7 +32,7 @@ export default function SmartCostSplitting() {
             expenses={expenses} 
             onSelectPerson={setSelectedPerson} 
             onAddPerson={handleAddPerson} 
-            onRemovePerson={handleRemovePerson}/>
+          />
         </div>
         {/* Main Content - Details or Breakdown */}
         <div style={{ width: '65%', backgroundColor: '#fafafa', padding: '2rem' }}>
