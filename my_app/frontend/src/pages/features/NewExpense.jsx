@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
+import { card, input, primaryBtn } from './uiStyles';
 
 export default function NewExpense({ person, onAdd, onEdit, onClose, isEditing = false, initialData = {} }) {
     {/* This component is used to add a new expense. It takes in the following props: */}
     const [formData, setFormData] = useState({
       name: initialData.name || '',
       cost: initialData.cost || '',
-      paidBy: initialData.paidBy || 'You',
-      status: initialData.status || 'Unsettled',
+      paidBy: initialData.paidBy || 'Paid by',
+      status: initialData.status || 'Select status',
     });
 
     {/* Initialise with empty values */}
     useEffect(() => {
       if (!isEditing) {
-        setFormData(f => ({ ...f, paidBy: 'You' }));
+        setFormData(f => ({ ...f,}));
       }
     }, [person, isEditing]);
 
@@ -30,56 +31,38 @@ export default function NewExpense({ person, onAdd, onEdit, onClose, isEditing =
         } else {
           onAdd(formData);
         }
+        onClose();
     };
 
     {/* Form design and logic */}
     return (
-        <form onSubmit={handleSubmit} style={{
-          marginTop: '2rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          backgroundColor: '#fff',
-          padding: '1.5rem',
-          borderRadius: '1rem',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-          width: '100%',
-        }}>
-          <input name="name" placeholder="Expenditure" value={formData.name} onChange={handleChange} required />
-          <input name="cost" placeholder="Cost" type="number" value={formData.cost} onChange={handleChange} required />
-          <select name="paidBy" value={formData.paidBy} onChange={handleChange} required>
+        <form style={card} onSubmit={handleSubmit}>
+          <input style={input} name="name" placeholder="Expenditure" value={formData.name} onChange={handleChange} required />
+          <input style={input} name="cost" placeholder="Cost" type="number" value={formData.cost} onChange={handleChange} required />
+          <select style={input} name="paidBy" value={formData.paidBy} onChange={handleChange} required>
             <option value="">Paid by</option>
             <option value="You">You</option>
             <option value={person.name}>{person.name}</option>
           </select>
-          <select name="status" value={formData.status} onChange={handleChange} required>
+          <select style={input} name="status" value={formData.status} onChange={handleChange} required>
             <option value="">Select status</option>
             <option value="Settled">Settled</option>
             <option value="Unsettled">Unsettled</option>
           </select>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-          <button type="submit" style={{
-            padding: '0.6rem',
-            backgroundColor: '#10b981',
-            color: 'white',
-            border: 'none',
-            borderRadius: '0.5rem',
-            fontSize: '1rem',
-            cursor: 'pointer',
-          }}>
-            Submit
-          </button>
-          <button type="button" onClick={onClose} style={{
-            padding: '0.6rem',
-            backgroundColor: '#f87171',
-            color: 'white',
-            border: 'none',
-            borderRadius: '0.5rem',
-            fontSize: '1rem',
-            cursor: 'pointer',
-          }}>
-            Cancel
-          </button>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+            <button 
+              type="submit" 
+              style={{ ...primaryBtn, backgroundColor: '#10b981', color: '#fff' }}
+            >
+              {isEditing ? 'Update' : 'Submit'}
+            </button>
+            <button 
+              type="button" 
+              onClick={onClose} 
+              style={{ ...primaryBtn, backgroundColor: '#f87171', color: '#fff'}}
+            >
+              Cancel
+            </button>
           </div>
         </form>
     );

@@ -26,7 +26,7 @@ export default function SmartCostSplitting() {
         <div style={{ 
             width: '35%', 
             background: 'linear-gradient(to bottom right, #fdf6e3, #f1ece2)',
-            padding: '1rem', 
+            padding: '2.5rem', 
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',

@@ -1,8 +1,7 @@
-import { useState } from 'react';
-
-export default function RemovePerson({ people, deleteMode, toggleDeleteMode, selectedToDelete, setSelectedToDelete, onConfirmDelete }) {
+export default function RemovePerson({ deleteMode, toggleDeleteMode, selectedToDelete, onConfirmDelete }) {
     return (
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '2rem' }}>
+          {/* Standard delete people button */}
           <button
             onClick={toggleDeleteMode}
             style={{
@@ -25,6 +24,7 @@ export default function RemovePerson({ people, deleteMode, toggleDeleteMode, sel
           >
             {deleteMode ? 'Cancel Delete' : 'Delete People'}
           </button>
+          {/* If in delete mode, and at least one person is selected, show the confirm delete button */}
           {deleteMode && selectedToDelete.size > 0 && (
           <button
             onClick={onConfirmDelete}
